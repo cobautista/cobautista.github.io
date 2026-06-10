@@ -39,8 +39,46 @@ body {
   text-transform: uppercase;
 }
 
+/* Button fill-sweep — CSS-only, scales a pseudo-element from the left.
+   Works in static export (no JS). The swept color is set per-variant via
+   the --sweep custom property. */
+.btn-sweep::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-color: var(--sweep, var(--color-amber));
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.36s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-sweep:hover::before,
+.btn-sweep:focus-visible::before {
+  transform: scaleX(1);
+}
+
+/* Scroll-progress bar — width driven by a JS-set --scroll custom property,
+   pinned to the top of the viewport above the grain overlay. */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  transform: scaleX(var(--scroll, 0));
+  transform-origin: left center;
+  background-color: var(--color-ink);
+  z-index: 70;
+  will-change: transform;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  /* Disable the sweep animation but keep the end-state legible:
+     show the fill instantly on hover rather than transitioning. */
+  .btn-sweep::before {
+    transition: none;
   }
 }

@@ -6,6 +6,7 @@ import {
   useMotionValue,
   useSpring,
   useTransform,
+  useScroll,
   type Variants,
 } from "motion/react";
 import { useEffect, useRef, useState, type ReactNode } from "react";
@@ -231,5 +232,25 @@ export function LiveClock({ className }: { className?: string }) {
     <span className={className} suppressHydrationWarning>
       {time}
     </span>
+  );
+}
+
+/* ------------------------- Scroll-progress bar --------------------------- */
+export function ScrollProgress() {
+  const reduce = useReducedMotion();
+  const { scrollYProgress } = useScroll();
+  // Spring-smooth the raw progress for a fluid bar; skip the spring under
+  // reduced-motion so it tracks position 1:1 with no easing.
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 120,
+    damping: 30,
+    restDelta: 0.001,
+  });
+  return (
+    <motion.div
+      className="scroll-progress"
+      style={{ scaleX: reduce ? scrollYProgress : scaleX }}
+      aria-hidden
+    />
   );
 }

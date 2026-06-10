@@ -17,7 +17,9 @@ import {
   Magnetic,
   TiltCard,
   LiveClock,
+  ScrollProgress,
 } from "./components/motion-primitives";
+import { Button } from "./components/ui-button";
 
 const specializations = [
   {
@@ -77,6 +79,7 @@ const skillGroups = [
 export default function Home() {
   return (
     <>
+      <ScrollProgress />
       <div className="grain" aria-hidden />
       <main className="relative min-h-[100dvh] w-full overflow-x-hidden">
         {/* HERO */}
@@ -125,20 +128,18 @@ export default function Home() {
             <div className="flex items-end md:col-span-4 md:justify-end">
               <Reveal delay={0.1} className="flex flex-wrap gap-3">
                 <Magnetic strength={0.35}>
-                  <a
+                  <Button
                     href="#work"
-                    className="inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 text-sm font-semibold uppercase tracking-wide text-paper transition-transform duration-200 hover:-translate-y-0.5 active:translate-y-0"
+                    variant="solid"
+                    icon={<ArrowRight size={16} weight="bold" />}
                   >
-                    View work <ArrowRight size={16} weight="bold" />
-                  </a>
+                    View work
+                  </Button>
                 </Magnetic>
                 <Magnetic strength={0.35}>
-                  <a
-                    href="#contact"
-                    className="inline-flex items-center gap-2 rounded-full border border-ink/30 px-6 py-3 text-sm font-semibold uppercase tracking-wide text-ink transition-colors duration-200 hover:bg-ink hover:text-paper"
-                  >
+                  <Button href="#contact" variant="outline">
                     Get in touch
-                  </a>
+                  </Button>
                 </Magnetic>
               </Reveal>
             </div>
@@ -227,15 +228,16 @@ export default function Home() {
 
               <Reveal delay={0.1}>
                 <Magnetic strength={0.3}>
-                  <a
+                  <Button
                     href="https://github.com/cobautista/true-crime-content-factory"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-12 inline-flex items-center gap-2 rounded-full bg-amber px-6 py-3 text-sm font-semibold uppercase tracking-wide text-night transition-transform duration-200 hover:-translate-y-0.5 active:translate-y-0"
+                    external
+                    variant="solid"
+                    className="mt-12 bg-amber text-night [--sweep:var(--color-ink)] hover:text-paper"
+                    icon={<ArrowUpRight size={16} weight="bold" />}
+                    ariaLabel="View True Crime Content Factory on GitHub"
                   >
                     <GithubLogo size={18} weight="fill" /> View on GitHub
-                    <ArrowUpRight size={16} weight="bold" />
-                  </a>
+                  </Button>
                 </Magnetic>
               </Reveal>
             </div>
