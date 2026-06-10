@@ -9,7 +9,15 @@ import {
   Graph,
   Gauge,
 } from "@phosphor-icons/react/dist/ssr";
-import { Reveal, StaggerGroup, StaggerItem } from "./components/motion-primitives";
+import {
+  Reveal,
+  StaggerGroup,
+  StaggerItem,
+  KineticLines,
+  Magnetic,
+  TiltCard,
+  LiveClock,
+} from "./components/motion-primitives";
 
 const specializations = [
   {
@@ -76,15 +84,18 @@ export default function Home() {
           <div className="md:col-span-7 md:pr-8">
             <div className="flex items-center justify-between border-b border-ink/20 pb-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-soft">
               <span>Cob Bautista</span>
-              <span>Available for work</span>
+              <span className="flex items-center gap-3">
+                <span className="hidden sm:inline">Available for work</span>
+                <span className="inline-flex items-center gap-1.5">
+                  <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-amber" />
+                  <LiveClock className="tabular-nums" />
+                </span>
+              </span>
             </div>
-            <h1 className="display mt-8 text-[clamp(2.8rem,6.5vw,6rem)] text-ink">
-              n8n
-              <br />
-              Automation
-              <br />
-              Specialist
-            </h1>
+            <KineticLines
+              lines={["n8n", "Automation", "Specialist"]}
+              className="display mt-8 text-[clamp(2.8rem,6.5vw,6rem)] text-ink"
+            />
           </div>
 
           <div className="mt-8 md:col-span-5 md:mt-0">
@@ -113,18 +124,22 @@ export default function Home() {
             </Reveal>
             <div className="flex items-end md:col-span-4 md:justify-end">
               <Reveal delay={0.1} className="flex flex-wrap gap-3">
-                <a
-                  href="#work"
-                  className="inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 text-sm font-semibold uppercase tracking-wide text-paper transition-transform duration-200 hover:-translate-y-0.5 active:translate-y-0"
-                >
-                  View work <ArrowRight size={16} weight="bold" />
-                </a>
-                <a
-                  href="#contact"
-                  className="inline-flex items-center gap-2 rounded-full border border-ink/30 px-6 py-3 text-sm font-semibold uppercase tracking-wide text-ink transition-colors duration-200 hover:bg-ink hover:text-paper"
-                >
-                  Get in touch
-                </a>
+                <Magnetic strength={0.35}>
+                  <a
+                    href="#work"
+                    className="inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 text-sm font-semibold uppercase tracking-wide text-paper transition-transform duration-200 hover:-translate-y-0.5 active:translate-y-0"
+                  >
+                    View work <ArrowRight size={16} weight="bold" />
+                  </a>
+                </Magnetic>
+                <Magnetic strength={0.35}>
+                  <a
+                    href="#contact"
+                    className="inline-flex items-center gap-2 rounded-full border border-ink/30 px-6 py-3 text-sm font-semibold uppercase tracking-wide text-ink transition-colors duration-200 hover:bg-ink hover:text-paper"
+                  >
+                    Get in touch
+                  </a>
+                </Magnetic>
               </Reveal>
             </div>
           </div>
@@ -143,13 +158,15 @@ export default function Home() {
               return (
                 <StaggerItem
                   key={s.title}
-                  className="bg-paper p-8 transition-colors duration-300 hover:bg-paper-deep md:p-10"
+                  className="bg-paper"
                 >
-                  <Icon size={32} weight="duotone" className="text-ink" />
-                  <h3 className="mt-6 text-xl font-bold text-ink">{s.title}</h3>
-                  <p className="mt-3 max-w-[42ch] leading-relaxed text-ink-soft">
-                    {s.body}
-                  </p>
+                  <TiltCard className="h-full p-8 transition-colors duration-300 hover:bg-paper-deep md:p-10">
+                    <Icon size={32} weight="duotone" className="text-ink" />
+                    <h3 className="mt-6 text-xl font-bold text-ink">{s.title}</h3>
+                    <p className="mt-3 max-w-[42ch] leading-relaxed text-ink-soft">
+                      {s.body}
+                    </p>
+                  </TiltCard>
                 </StaggerItem>
               );
             })}
@@ -177,11 +194,11 @@ export default function Home() {
 
               <StaggerGroup className="mt-14 grid grid-cols-2 gap-px overflow-hidden rounded-2xl bg-paper/10 lg:grid-cols-4">
                 {stats.map((s) => (
-                  <StaggerItem key={s.label} className="bg-night px-6 py-8">
+                  <StaggerItem key={s.label} className="bg-night px-6 py-10 md:px-8">
                     <div className="display text-4xl text-amber md:text-5xl">
                       {s.value}
                     </div>
-                    <div className="mt-2 text-sm text-paper/60">{s.label}</div>
+                    <div className="mt-3 text-sm text-paper/60">{s.label}</div>
                   </StaggerItem>
                 ))}
               </StaggerGroup>
@@ -209,15 +226,17 @@ export default function Home() {
               </div>
 
               <Reveal delay={0.1}>
-                <a
-                  href="https://github.com/cobautista/true-crime-content-factory"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-12 inline-flex items-center gap-2 rounded-full bg-amber px-6 py-3 text-sm font-semibold uppercase tracking-wide text-night transition-transform duration-200 hover:-translate-y-0.5 active:translate-y-0"
-                >
-                  <GithubLogo size={18} weight="fill" /> View on GitHub
-                  <ArrowUpRight size={16} weight="bold" />
-                </a>
+                <Magnetic strength={0.3}>
+                  <a
+                    href="https://github.com/cobautista/true-crime-content-factory"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-12 inline-flex items-center gap-2 rounded-full bg-amber px-6 py-3 text-sm font-semibold uppercase tracking-wide text-night transition-transform duration-200 hover:-translate-y-0.5 active:translate-y-0"
+                  >
+                    <GithubLogo size={18} weight="fill" /> View on GitHub
+                    <ArrowUpRight size={16} weight="bold" />
+                  </a>
+                </Magnetic>
               </Reveal>
             </div>
           </div>
